@@ -1,6 +1,6 @@
 export const resolvers = {
     Query: {
-        songs: () => songs,
+        podcasts: () => podcasts,
     }
 }
 

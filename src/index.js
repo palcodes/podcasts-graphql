@@ -1,22 +1,27 @@
-import ApolloServer from 'apollo-server-express'
+import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import mongoose from 'mongoose'
 import { resolvers } from './resolvers'
 import { typeDefs } from './typeDefs'
 
-const app = express()
 
-mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+const startServer = async () => {
+	
+	const app = express()
 
+	const server = new ApolloServer({
+		typeDefs,
+		resolvers,
+	});
+	
+	server.applyMiddleware({ app });
+	
+	// replace <connection-string> with your value here
+	await mongoose.connect('<connection-string>', { useNewUrlParser: true, useUnifiedTopology: true });
 
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-  });
+	app.listen({ port: 4000 }, () =>
+		console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+	)
+}
 
-
-server.applyMiddleware({ app });
-
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-)
+startServer();

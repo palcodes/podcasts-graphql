@@ -4,10 +4,15 @@ export const typeDefs = gql`
 type Podcast {
     id: ID!
     name: String!,
-    artist: String!
+    description: String!,
+    episodes: String!
 }
 
 type Query {
-    podcasts: [podcast]
+    getPodcasts: [Podcast!]!
+}
+
+type Mutation {
+    createPod(name: String!, description: String!, episodes: String!): Podcast!
 }
 `

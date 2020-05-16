@@ -1,10 +1,14 @@
+import { Podcast } from './models/podcast'
+
 export const resolvers = {
     Query: {
-        podcasts: () => podcasts,
+        getPodcasts: async () => await Podcast.find().exec 
+    },
+    Mutation: {
+        createPod: async (_, {name, description, episodes}) => {
+            const newPod = new Podcast({name, description, episodes})
+            await newPod.save()
+            return newPod
+        }
     }
 }
-
-
-
-// const kitty = new Cat({ name: 'Zildjian' });
-// kitty.save().then(() => console.log('meow'));

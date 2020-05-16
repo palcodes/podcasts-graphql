@@ -17,7 +17,6 @@ const startServer = async () => {
 	server.applyMiddleware({ app });
 	
 	// replace <connection-string> with your value here
-	await mongoose.connect('<connection-string>', { useNewUrlParser: true, useUnifiedTopology: true });
 
 	app.listen({ port: 4000 }, () =>
 		console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
@@ -25,3 +24,5 @@ const startServer = async () => {
 }
 
 startServer();
+
+mongoose.connection.once('open', () => console.log('CONNECTED'))

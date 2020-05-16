@@ -2,7 +2,7 @@ import { Podcast } from './models/podcast'
 
 export const resolvers = {
     Query: {
-        getPodcasts: async () => await Podcast.find().exec 
+        getPodcasts: async () => await Podcast.find() 
     },
     Mutation: {
         createPod: async (_, {name, description, episodes}) => {
